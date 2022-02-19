@@ -21,10 +21,13 @@ public class Allocation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private DayOfWeek day;
+	@Column(nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date start;
+	@Column(nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date end;
 	

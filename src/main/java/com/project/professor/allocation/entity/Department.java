@@ -10,8 +10,8 @@ import javax.persistence.Id;
 public class Department {
 	
 	@Id
-	private Long id;
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@Column(unique = true, nullable = false)
 	private String name;
 	
