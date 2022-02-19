@@ -20,7 +20,7 @@ public class Professor {
 	private String cpf;
 	
 	@Column(name = "department_id", nullable = false)
-	private Long departmentid;
+	private Long departmentId;
 	
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "department_id", updatable = false, insertable = false, nullable = false)
@@ -45,9 +45,9 @@ public class Professor {
 		this.cpf = cpf;
 	}
 	public Long getDepartmentid() {
-		return departmentid;
+		return departmentId;
 	}
 	public void setDepartmentid(Long departmentid) {
-		this.departmentid = departmentid;
+		this.departmentId = departmentid;
 	}
 }
