@@ -32,6 +32,18 @@ public class Professor {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	public Long getDepartmentId() {
+		return departmentId;
+	}
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
+	}
+	public Department getDepart() {
+		return depart;
+	}
+	public void setDepart(Department depart) {
+		this.depart = depart;
+	}
 	public String getName() {
 		return name;
 	}
