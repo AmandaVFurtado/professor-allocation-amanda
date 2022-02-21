@@ -33,6 +33,26 @@ public class Allocation {
 	
 	@Column(name = "course_id", nullable = false)
 	private Long courseId;
+	public Course getCourse() {
+		return course;
+	}
+
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
+
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "course_id", insertable = false, updatable = false, nullable = false)
 	private Course course;
