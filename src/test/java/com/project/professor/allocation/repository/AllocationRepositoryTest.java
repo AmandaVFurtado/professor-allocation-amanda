@@ -28,22 +28,22 @@ public class AllocationRepositoryTest {
     @Test
     public void findAll() {
         // Act
-        
+        List<Allocation> allocation = allocationRepository.findAll();
 
         // Print
-        
+        System.out.println(allocation);
     }
 
     @Test
     public void findById() {
         // Arrange
-        
+        Allocation allocation = allocationRepository.findById(1L).orElse(null);
 
         // Act
         
 
         // Print
-        
+        System.out.println(allocation);
     }
 
     @Test
@@ -73,31 +73,43 @@ public class AllocationRepositoryTest {
     @Test
     public void save_create() throws ParseException {
         // Arrange
-        
+        Allocation allocation = new Allocation();
+        allocation.setCourseId(1L);
+        allocation.setProfessorId(1L);
+        allocation.setDay(DayOfWeek.FRIDAY);
+        allocation.setStart(sdf.parse("10:30-0000"));
+        allocation.setEnd(sdf.parse("11:30-0000"));
 
         // Act
-        
+        Allocation allocations = allocationRepository.save(allocation);
 
         // Print
-        
+        System.out.println(allocations);
     }
 
     @Test
     public void save_update() throws ParseException {
         // Arrange
-        
+    	Allocation allocation = new Allocation();
+        allocation.setCourseId(1L);
+        allocation.setProfessorId(1L);
+        allocation.setDay(DayOfWeek.MONDAY);
+        allocation.setStart(sdf.parse("12:00-0000"));
+        allocation.setEnd(sdf.parse("13:00-0000"));
+        allocation.setId(1L);
 
         // Act
-        
+        Allocation allocations = allocationRepository.save(allocation);
 
         // Print
+        System.out.println(allocations);
         
     }
 
     @Test
     public void deleteById() {
         // Arrange
-        
+        allocationRepository.deleteById(1L);
 
         // Act
         
@@ -106,6 +118,6 @@ public class AllocationRepositoryTest {
     @Test
     public void deleteAll() {
         // Act
-        
+        allocationRepository.deleteAllInBatch();
     }
 }
