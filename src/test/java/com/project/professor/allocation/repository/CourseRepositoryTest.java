@@ -23,7 +23,7 @@ public class CourseRepositoryTest {
 	
 	@Autowired
 	CourseRepository courseRepository;
-	Faker faker = new Faker();
+	
 	
 	@Test
     public void findAll() {
@@ -49,9 +49,11 @@ public class CourseRepositoryTest {
     @Test
     public void save_create() throws ParseException {
         // Arrange
+    	Faker faker = new Faker();
+    	
     	Course course = new Course();
 
-		course.setName("macacos me mordam");
+		course.setName(faker.file().fileName());
 		// Act
 		Course courses = courseRepository.save(course);
 

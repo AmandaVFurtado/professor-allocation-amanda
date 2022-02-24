@@ -1,4 +1,5 @@
 package com.project.professor.allocation.repository;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.github.javafaker.Faker;
 import com.project.professor.allocation.entity.Course;
@@ -23,7 +24,6 @@ public class ProfessorRepositoryTest {
 	@Autowired
 	ProfessorRepository professorRepository;
 	
-	Faker faker = new Faker();
 	
 	@Test
     public void findAll() {
@@ -49,9 +49,11 @@ public class ProfessorRepositoryTest {
     @Test
     public void save_create() throws ParseException {
         // Arrange
+    	Faker faker = new Faker();
+    	
         Professor professor = new Professor();
-        professor.setName("Harry Gatorade");
-        professor.setCpf("12345678901");
+        professor.setName(faker.harryPotter().character().toString());
+        professor.setCpf(String.valueOf(generateId()));
         professor.setDepartmentId(1L);
 
         // Act
@@ -92,4 +94,10 @@ public class ProfessorRepositoryTest {
         // Act
         professorRepository.deleteAllInBatch();
     }
-}
+
+    public long generateId() {
+    	  ThreadLocalRandom random = ThreadLocalRandom.current();
+    	  return random.nextLong(10_000_000_000L, 100_000_000_000L);
+    	
+    }
+  }

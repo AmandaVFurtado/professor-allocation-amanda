@@ -25,7 +25,6 @@ public class DepartmentRepositoryTest {
 	@Autowired
 	DepartmentRepository departmentRepository;
 	
-	Faker faker = new Faker();
 
 	@Test
 	public void findAll() {
@@ -51,8 +50,10 @@ public class DepartmentRepositoryTest {
 	@Test
 	public void save_create() throws ParseException {
 		// Arrange
+		Faker faker = new Faker();
+		
 		Department department = new Department();
-		department.setName("geladeira");
+		department.setName(faker.animal().name().toString());
 
 		// Act
 		Department departments = departmentRepository.save(department);
