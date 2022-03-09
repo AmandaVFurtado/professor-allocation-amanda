@@ -116,7 +116,7 @@ public class AllocationService {
 			Course course = courseService.findById(allocation.getCourseId());
 			allocation.setCourse(course);
 			
-			return allocationRepository.save(allocation);
+			return allocationNew;
 		}
 	}
 	
