@@ -38,12 +38,6 @@ public class AllocationService {
 		return allocation;
 	}
 	
-	public Allocation create(Allocation allocation) {
-		
-		allocation.setId(null);
-		return saveInternal(allocation);
-	}
-	
 	public List<Allocation> findByProfessor(Long professorId) {
 		
 		List<Allocation> allocations = allocationRepository.findByProfessorId(professorId);
@@ -58,6 +52,12 @@ public class AllocationService {
 		return allocations;
 	}
 	
+	public Allocation create(Allocation allocation) {
+		
+		allocation.setId(null);
+		return saveInternal(allocation);
+	}
+	
 	public Allocation update(Allocation allocation) {
 		
 		Long id = allocation.getId();
@@ -70,37 +70,23 @@ public class AllocationService {
 			
 			return null;
 		}
-		
 	}
-	
-	private Allocation saveInternal(Allocation allocation) {
 		
-		if(hasCollision(allocation)) {
-			
-			throw new RuntimeException();
-			
-		}else {
-			
-			Allocation allocationNew = allocationRepository.save(allocation);
-			
-			//Professor professor = professorService.findById(io)
-		
-			return allocationRepository.save(allocation);
-		}
-	}
-	
 	public void deleteById(Long id) {
-		
-		if (allocationRepository.existsById(id)) {
 			
-			allocationRepository.deleteById(id);
+			if (allocationRepository.existsById(id)) {
+				
+				allocationRepository.deleteById(id);
+			}
 		}
-	}
-	
-	public void deleteAll() {
 		
-		allocationRepository.deleteAllInBatch();
-	}
+	public void deleteAll() {
+			
+			allocationRepository.deleteAllInBatch();
+		}
+	
+	
+	
 	
 	
 	
@@ -112,6 +98,26 @@ public class AllocationService {
 	
 	
 	// Regra de Negócio
+	private Allocation saveInternal(Allocation allocation) {
+		
+		if(hasCollision(allocation)) {
+			
+			throw new RuntimeException();
+			
+		}else {
+			
+			Allocation allocationNew = allocationRepository.save(allocation);
+			
+			Professor professor = professorService.findById(allocation.getProfessorId());
+			allocation.setProfessor(professor);
+			
+			Course course = courseService.findById(allocation.getCourseId());
+			allocation.setCourse(course);
+			
+			return allocationRepository.save(allocation);
+		}
+	}
+	
 	boolean isEndHourGreaterThanStartHour(Allocation allocation) {
 		
 		return allocation != null && allocation.getStart() != null && allocation.getEnd() != null
