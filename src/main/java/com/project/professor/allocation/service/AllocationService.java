@@ -102,7 +102,22 @@ public class AllocationService {
 		allocationRepository.deleteAllInBatch();
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// Regra de Negócio
+	boolean isEndHourGreaterThanStartHour(Allocation allocation) {
+		
+		return allocation != null && allocation.getStart() != null && allocation.getEnd() != null
+	            && allocation.getEnd().compareTo(allocation.getStart()) > 0;
+	}
+	
 	boolean hasCollision(Allocation newAllocation) {
 		boolean hasCollision = false;
 
