@@ -5,18 +5,22 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.project.professor.allocation.repository.DepartmentRepository;
+import com.project.professor.allocation.repository.ProfessorRepository;
 import com.project.professor.allocation.entity.Department;
+import com.project.professor.allocation.entity.Professor;
 
 @Service
 public class DepartmentService {
 	
 	private final DepartmentRepository departmentRepository;
+	private final ProfessorRepository professorRepository;
 	
 	
 
-	public DepartmentService(DepartmentRepository departmentRepository) {
+	public DepartmentService(DepartmentRepository departmentRepository, ProfessorRepository professorRepository) {
 		super();
 		this.departmentRepository = departmentRepository;
+		this.professorRepository = professorRepository;
 	}
 
 	public List<Department> findAll(String name) {
@@ -70,6 +74,9 @@ public class DepartmentService {
 	
 	private Department saveInternal(Department department) {
         department = departmentRepository.save(department);
+        
+        List<Professor> professors = professorRepository.findByDepartmentId(department.getId());
+        department.setProfessors(professors);
 
         return department;
     }
