@@ -28,21 +28,18 @@ public class ProfessorService {
 		this.allocationRepository = allocationRepository;
 	}
 
-	public List<Professor> findAll(String name) {
-		if (name == null) {
-			return professorRepository.findAll();
-		} else {
-			return professorRepository.findByNameContainingIgnoreCase(name);
-		}
+	public List<Professor> findAll() {
+		return professorRepository.findAll();
+		
 	}
 
 	public Professor findById(Long id) {
 		return professorRepository.findById(id).orElse(null);
 	}
 
-	public Professor findByName(String name) {
-		return professorRepository.findByName(name).orElse(null);
-
+	//A IDEIA É RETORNAR UMA LISTA VAZIA SE NAO HOUVER PROFESSOR QUE CONTENHA NAME!
+	public List<Professor> findByNameContainingIgnoreCase(String name) {
+		return professorRepository.findByNameContainingIgnoreCase(name);
 	}
 
 	public Professor findByCpf(String cpf) {

@@ -33,7 +33,7 @@ public class CourseService {
 	
 	//A IDEIA É RETORNAR UMA LISTA VAZIA SE NAO HOUVER COURSE QUE CONTENHA NAME!
 	public List<Course> findByNameContainingIgnoreCase(String name) {
-		return ((Optional<Course>) courseRepository.findByNameContainingIgnoreCase(name)).orElse(null);
+		return courseRepository.findByNameContainingIgnoreCase(name);
 	}
 
 	public Course save(Course course) {
