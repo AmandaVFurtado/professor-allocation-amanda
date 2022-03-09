@@ -44,29 +44,13 @@ public class Professor {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@OneToMany(mappedBy = "professor")
 	private List<Allocation> allocations;
-
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getDepartmentId() {
-		return departmentId;
-	}
-
-	public void setDepartmentId(Long departmentId) {
-		this.departmentId = departmentId;
-	}
-
-	public Department getDepart() {
-		return depart;
-	}
-
-	public void setDepart(Department depart) {
-		this.depart = depart;
 	}
 
 	public String getName() {
@@ -84,17 +68,32 @@ public class Professor {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	
+	
 
-	public Long getDepartmentid() {
+	public Long getDepartmentId() {
 		return departmentId;
 	}
 
-	public void setDepartmentid(Long departmentid) {
-		this.departmentId = departmentid;
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public Department getDepartment() {
+		return depart;
+	}
+
+	public void setDepartment(Department department) {
+		this.depart = department;
+	}
+
+	public List<Allocation> getAllocations() {
+		return allocations;
 	}
 
 	public void setAllocations(List<Allocation> allocations) {
 		this.allocations = allocations;
-		
 	}
+
+
 }

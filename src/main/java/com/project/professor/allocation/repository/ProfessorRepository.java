@@ -18,4 +18,8 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long>{
     
     Optional<Professor> findByName(String name);
 
+
+
+	List<Professor> findByDepartmentId(Long departmentId);
+
 }
