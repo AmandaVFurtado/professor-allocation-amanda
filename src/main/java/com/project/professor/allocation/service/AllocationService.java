@@ -11,10 +11,17 @@ import com.project.professor.allocation.repository.AllocationRepository;
 public class AllocationService {
 	
 	private final AllocationRepository allocationRepository;
+	private final ProfessorService professorService;
+	private final CourseService courseService;
 
-	public AllocationService(AllocationRepository allocationRepository) {
+	public AllocationService(AllocationRepository allocationRepository, ProfessorService professorService,
+			CourseService courseService) {
+		
 		super();
 		this.allocationRepository = allocationRepository;
+		this.professorService = professorService;
+		this.courseService = courseService;
+	
 	}
 	
 	public List<Allocation> findAll(){
@@ -35,6 +42,20 @@ public class AllocationService {
 		
 		allocation.setId(null);
 		return saveInternal(allocation);
+	}
+	
+	public List<Allocation> findByProfessor(Long professorId) {
+		
+		List<Allocation> allocations = allocationRepository.findByProfessorId(professorId);
+		
+		return allocations;
+	}
+	
+	public List<Allocation> findByCourse(Long courseId) {
+		
+		List<Allocation> allocations = allocationRepository.findByCourseId(courseId);
+		
+		return allocations;
 	}
 	
 	public Allocation update(Allocation allocation) {
@@ -59,6 +80,10 @@ public class AllocationService {
 			throw new RuntimeException();
 			
 		}else {
+			
+			Allocation allocationNew = allocationRepository.save(allocation);
+			
+			//Professor professor = professorService.findById(io)
 		
 			return allocationRepository.save(allocation);
 		}
