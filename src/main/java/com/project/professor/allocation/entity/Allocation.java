@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -57,6 +58,7 @@ public class Allocation {
 	@Column(name = "course_id", nullable = false)
 	private Long courseId;
     
+	@JsonIgnoreProperties({"allocations"})
 	@JsonProperty(access = Access.READ_ONLY)
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "course_id", insertable = false, updatable = false, nullable = false)
@@ -66,6 +68,7 @@ public class Allocation {
 	@Column(name = "professor_id", nullable = false)
 	private Long professorId;
 	
+	@JsonIgnoreProperties({"allocations"})
 	@JsonProperty(access = Access.READ_ONLY)
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "professor_id", insertable = false, updatable = false, nullable = false)
