@@ -40,8 +40,14 @@ public class ProfessorController {
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<List<Professor>> findAll(@RequestParam(name = "name", required = false) String name) {
-		List<Professor> professor = professorService.findAll();
-		
+		List<Professor> professor;
+
+		if (name == null) {
+			professor = professorService.findAll();
+		} else {
+			professor = professorService.findByNameContainingIgnoreCase(name);
+		}
+
 		return new ResponseEntity<>(professor, HttpStatus.OK);
 	}
 	
@@ -52,21 +58,6 @@ public class ProfessorController {
     @ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Professor> findById(@PathVariable(name = "department_id") Long id) {
 		Professor professor = professorService.findById(id);
-		
-		if (professor == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			return new ResponseEntity<>(professor, HttpStatus.OK);
-		}
-	}
-	
-	@ApiOperation(value = "Find a professor by name")
-	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 404, message = "Not Found") })
-	@GetMapping(path = "/name/{professor_name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<List<Professor>> findByNameContainingIgnoreCase(@PathVariable(name = "professor_name") String name) {
-		List<Professor> professor = professorService.findByNameContainingIgnoreCase(name);
 		
 		if (professor == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
