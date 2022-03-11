@@ -58,6 +58,10 @@ public class DepartmentController {
 		}
 	}
 
+	// Funciona, mas nunca vi um parâmetro de caminho sendo utilizado para
+	// valores que possam ter espaço
+	// exemplo:
+    //		Departamento de Física - http://localhost:8080/departments/name/Departamento de Física
 	@ApiOperation(value = "Find a department by name")
 	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request"),
 			@ApiResponse(code = 404, message = "Not Found") })
