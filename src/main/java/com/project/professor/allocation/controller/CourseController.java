@@ -39,8 +39,14 @@ public class CourseController {
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<List<Course>> findAll(@RequestParam(name = "name", required = false) String name) {
-		List<Course> course = courseService.findAll();
-		
+		List<Course> course;
+
+		if (name == null) {
+			course = courseService.findAll();
+		} else {
+			course = courseService.findByNameContainingIgnoreCase(name);
+		}
+
 		return new ResponseEntity<>(course, HttpStatus.OK);
 	}
 	
@@ -58,22 +64,7 @@ public class CourseController {
 			return new ResponseEntity<>(course, HttpStatus.OK);
 		}
 	}
-	
-	@ApiOperation(value = "Find a course by name")
-	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 404, message = "Not Found") })
-	@GetMapping(path = "/name/{course_name}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<List<Course>> findByName(@PathVariable(name = "course_name") String name) {
-		List<Course> course = courseService.findByNameContainingIgnoreCase(name);
-		
-		if (course == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			return new ResponseEntity<>(course, HttpStatus.OK);
-		}
-	}
-	
+
 	@ApiOperation(value = "Create a course")
 	@ApiResponses({ @ApiResponse(code = 201, message = "Created"), @ApiResponse(code = 400, message = "Bad Request") })
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
