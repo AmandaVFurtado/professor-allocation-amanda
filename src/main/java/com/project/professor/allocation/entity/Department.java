@@ -13,21 +13,22 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 public class Department {
 
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = Access.READ_ONLY)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = false, length = 50)
 	private String name;
 	
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = Access.READ_ONLY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "depart")
     private List<Professor> professors;
 
 	public Long getId() {
