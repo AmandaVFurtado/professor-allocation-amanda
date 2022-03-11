@@ -79,11 +79,11 @@ public class Professor {
 		this.departmentId = departmentId;
 	}
 
-	public Department getDepartment() {
+	public Department getDepart() {
 		return depart;
 	}
 
-	public void setDepartment(Department department) {
+	public void setDepart(Department department) {
 		this.depart = department;
 	}
 

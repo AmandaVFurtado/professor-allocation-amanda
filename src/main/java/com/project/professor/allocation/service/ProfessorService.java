@@ -81,7 +81,7 @@ public class ProfessorService {
 		professor = professorRepository.save(professor);
 		
 		Department department = departmentService.findById(professor.getDepartmentId());
-		professor.setDepartment(department);
+		professor.setDepart(department);
 		
 		List<Allocation> allocations = allocationRepository.findByProfessorId(professor.getId());
 		professor.setAllocations(allocations);
