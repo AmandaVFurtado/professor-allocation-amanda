@@ -15,9 +15,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
+import com.fasterxml.jackson.databind.ser.std.DateSerializer;
+
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 public class Allocation {
 
+	@JsonProperty(access = Access.READ_ONLY)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -26,39 +37,36 @@ public class Allocation {
 	@Enumerated(EnumType.STRING)
 	private DayOfWeek day;
 
+	@ApiModelProperty(example = "10:00-0300")
+	@JsonFormat(pattern = "HH:mmZ")
+	@JsonSerialize(using = DateSerializer.class)
+	@JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date start;
 
+	@ApiModelProperty(example = "12:00-0300")
+	@JsonFormat(pattern = "HH:mmZ")
+	@JsonSerialize(using = DateSerializer.class)
+	@JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date end;
 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name = "course_id", nullable = false)
 	private Long courseId;
-
-	public Course getCourse() {
-		return course;
-	}
-
-	public void setCourse(Course course) {
-		this.course = course;
-	}
-
-	public Professor getProfessor() {
-		return professor;
-	}
-
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
-	}
-
+    
+	@JsonProperty(access = Access.READ_ONLY)
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "course_id", insertable = false, updatable = false, nullable = false)
 	private Course course;
 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name = "professor_id", nullable = false)
 	private Long professorId;
+	
+	@JsonProperty(access = Access.READ_ONLY)
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "professor_id", insertable = false, updatable = false, nullable = false)
 	private Professor professor;
@@ -67,6 +75,21 @@ public class Allocation {
 	public String toString() {
 		return "Allocation [id=" + id + ", day=" + day + ", start=" + start + ", end=" + end + ", courseId=" + courseId
 				+ ", professorId=" + professorId + "]";
+	}
+	public Course getCourse() {
+		return course;
+	}
+	
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	
+	public Professor getProfessor() {
+		return professor;
+	}
+	
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
 	}
 
 	public Long getId() {
